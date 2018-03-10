@@ -1,34 +1,17 @@
 let width = $(window).width();
 let height = $(window).height();
-width = 100;
-height = 100;
 let field = new Array(width);
 let img;
 let ants = [];
-let antCount = 1;
-let extraDots = false;
-let frameSkip = 100000;
-let fr = 60;
-let w;
-let b;
-let start = false;
-let frame = 0;
-
-function getSum() {
-    let sum = 0;
-    for(let i = 0; i < width; i++) {
-        for(let j = 0; j < height; j++) {
-            sum += field[i][j];
-        }
-    }
-    return sum;
-}
-
+let antCount = 20;
+let extraDots = true;
+let frameSkip = 60;
 class Ant {
-    constructor(x, y, width, height, color) {
+    constructor(x, y, field, width, height, color) {
         this.x = x;
         this.y = y;
         this.dir = 1;
+        this.field = field;
         this.width = width;
         this.height = height;
         this.color = color;
@@ -78,13 +61,12 @@ class Ant {
 }
 
 function setup() {
-    frameRate(fr);
     console.log(width);
     createCanvas(width, height);
     img = createImage(width, height);
     img.loadPixels();
-    w = color(255);
-    b = color(0);
+    let w = color(255);
+    let b = color(0);
     for(let i = 0; i < width; i++) {
         field[i] = new Array(height);
         for(let j = 0; j < height; j++) {
@@ -93,7 +75,7 @@ function setup() {
                 field[i][j] = 0;
                 img.set(i, j, b);
             } else {
-                field[i][j] = 1;
+                field[i][j] = 255;
                 img.set(i, j, w);
             }
         }
@@ -101,47 +83,38 @@ function setup() {
     img.updatePixels();
     for(let i = 0; i < antCount; i++) {
         console.log(1);
-        ants.push(new Ant(Math.floor(random(width)), Math.floor(random(height)), width, height, color(random(255), random(255), random(255))));
+        ants.push(new Ant(Math.floor(random(width)), Math.floor(random(height)), field, width, height, color(random(255), random(255), random(255))));
     }
 }
 
 function draw() {
-
     img.loadPixels();
-    frame++;
-    if(frame % 10000) {
-        console.log('WORKING');
-    }
     for(let step = 0; step < frameSkip; step++) {
+        let x;
+        let y;
         for(let i = 0; i < antCount; i++) {
-            if(getSum(field) == 100 * 100 && start) {
-                console.log(10);
-                img.updatePixels();
-                noLoop();
-                throw 'DONE!';
-                img.updatePixels();
-                image(img, 0, 0);
-            }
-            start = true;
-            let x = ants[i].x;
-            let y = ants[i].y;
+            x = ants[i].x;
+            y = ants[i].y;
             let dir = ants[i].dir;
             if(field[x][y] == 0) {
                 ants[i].turnRight();
-                field[x][y] = 1;
+                field[x][y] = 255;
             } else {
                 ants[i].turnLeft();
                 field[x][y] = 0;
             }
             ants[i].moveForward();
-
+            ants[i].field = field;
+            let c = color(255);
             if(field[x][y] == 0) {
-                img.set(x, y, ants[i].color);
-            } else {
-                img.set(x, y, w);
+                c = ants[i].color;
             }
-
+            img.set(x, y, color(c));
         }
+
     }
 
+    img.updatePixels();
+
+    image(img, 0, 0);
 }
