@@ -5,7 +5,7 @@ let img;
 let ants = [];
 let antCount = 20;
 let extraDots = true;
-let frameSkip = 60;
+let frameSkip = 100;
 class Ant {
     constructor(x, y, field, width, height, color) {
         this.x = x;
