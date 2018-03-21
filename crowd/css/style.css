@@ -1,0 +1,74 @@
+body{
+  height:10000px;
+  margin:0;
+  
+}
+
+.headerContainerDiv{
+	position: relative;
+	width: 100%;
+	height: 500px;
+	max-width: 1920px;
+}
+
+#canvas{
+  width: 100%;
+  height: 500px;
+  background-color: #ccc;
+  min-width: 1920px;
+  position: absolute;
+  z-index: 1;
+}
+
+.headerTextDiv{
+	max-width: 550px;
+	width: 100%;
+	min-height: 332px;
+	text-align: center;
+	position: absolute;
+	left: auto;
+	right: auto;
+	top: calc(50% - 116px);
+	z-index: 2;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 5px;
+	overflow: hidden;
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin: auto;
+
+	-webkit-box-shadow: 0px 7px 32px -2px rgba(0,0,0,0.41);
+-moz-box-shadow: 0px 7px 32px -2px rgba(0,0,0,0.41);
+box-shadow: 0px 7px 32px -2px rgba(0,0,0,0.41);
+}
+
+.headerButton{
+	width:200px;
+	height: 43px;
+	display: inline-block;
+	border: 3px solid #E23C31;
+	color: #E23C31;
+	margin-right:20px;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 2px;
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+
+#signInBtn{
+	border: 3px solid #EB8B29;
+	color: #EB8B29;
+}
+
+.headerButton:hover{
+	transition: 0.3s;
+	background-color: #E23C31;
+	color: #fff; 
+}
+#signInBtn:hover{
+	background-color: #EB8B29;
+	color: #fff; 
+}
